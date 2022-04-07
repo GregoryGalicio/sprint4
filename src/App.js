@@ -1,4 +1,5 @@
 import React, {useEffect, useState } from 'react';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 //import logo from './logo.svg';
 //import './App.css';
 import {fireStore} from './firebase/firebase';
@@ -19,9 +20,11 @@ export default function App() {
       })
   },[]);
   return (
+    <BrowserRouter>
     <div className="App">
       <h1>Hola mundo</h1>
       {
+        
         data.map(item=>(
           <div>
             <p>{item.tweet}</p>
@@ -32,6 +35,8 @@ export default function App() {
         ))
       }
     </div>
+    </BrowserRouter>
+    
   );
 }
 
