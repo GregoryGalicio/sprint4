@@ -1,11 +1,11 @@
-/*Dependencias */
+/**Dependencies */
 
 import firebaseApp from 'firebase/app';
 import 'firebase/firestore';
-/**Config */
+//Config 
 
 import config from './config';
-
+/*tal vez se use firebaseConfig en vez de config*/
 
 firebaseApp.initializeApp(config);
 

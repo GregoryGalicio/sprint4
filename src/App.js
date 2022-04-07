@@ -1,26 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useEffect, useState } from 'react';
+//import logo from './logo.svg';
+//import './App.css';
+import {fireStore} from './firebase/firebase';
 
-function App() {
+
+export default function App() {
+  const[data,setData]=useState([]);
+  useEffect(()=>{
+    fireStore.collection('tweets').get()
+      .then((snapshot) => {
+        const docs=[]
+        snapshot.forEach(doc =>{
+          console.warn(doc.data())
+          docs.push(doc.data())
+        })
+          setData(docs)
+        //console.warn(snapshot)
+      })
+  },[]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
       <h1>Hola mundo</h1>
+      {
+        data.map(item=>(
+          <div>
+            <p>{item.tweet}</p>
+            <p>{item.username}</p>
+            <p>{item.task}</p>
+            <p>{item.done}</p>
+          </div>
+        ))
+      }
     </div>
   );
 }
 
-export default App;
+
