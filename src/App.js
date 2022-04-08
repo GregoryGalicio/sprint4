@@ -28,13 +28,17 @@ export default function App() {
       })
   },[]);
 
-const deleteTweet=(id)=>{
-  const updateTweets = data.filter((tweet)=>{
+const deleteTweet=(id) => {
+  //Filtramos State con el documento q no se necesita con Array (data es el array).filter
+  const updateTweets = data.filter((tweet) => {
     return tweet.id !== id
-  })
+  });
+  //actualizamos nuestro state con el array updateTweets actualizado  (ya filtrado )
   setData(updateTweets);
+
+  //actualizamos nuestro state con el array updateTweet actualizado
   fireStore.doc(`tweets/${id}`).delete();
-}
+};
 
   return (
     <BrowserRouter>
@@ -46,7 +50,7 @@ const deleteTweet=(id)=>{
           <div key={item.id}>
             <p>{item.tweet}</p>
             <p>Author: <strong>{item.author}</strong></p>
-            <button className="delete" onClick={()=>deleteTweet}>
+            <button className="delete" onClick={() => deleteTweet(item.id)}>
               <img className='imgdelete' alt="imgdelete" src="Vector.png"/>
             </button>
             <hr/>
@@ -55,7 +59,6 @@ const deleteTweet=(id)=>{
       } 
     </div>
     </BrowserRouter>
-    
   );
 }
 
