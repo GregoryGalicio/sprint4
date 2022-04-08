@@ -2,10 +2,7 @@ import React from "react";
 import useForm from "./useForm";
 import { fireStore } from "./firebase/firebase";
 
-const Form= ({
-    data=[],
-    setData
-})=>{
+const Form= ({data=[],setData})=>{
     const [value, handleInput, setValue]=useForm({
         tweet:"",
         author:"",

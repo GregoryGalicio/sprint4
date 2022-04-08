@@ -1,24 +1,27 @@
 import React, {useEffect, useState } from 'react';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 //import logo from './logo.svg';
-import './App.css';
+//import './App.css';
 import {fireStore} from './firebase/firebase';
 import Form from "./Form";
 
 
 export default function App() {
-  const[data,setData]=useState([]);
+  const[data,setData]=useState([])
   useEffect(()=>{
-    fireStore
-      .collection('tweets')
-      .get()
-      .then((snapshot) => {
-        const docs= snapshot.map(doc =>{
-          return{
+    fireStore.collection('tweets').get()
+      .then((snapshot) => { 
+        console.log(snapshot)
+        const docs = []
+
+        snapshot.forEach(doc =>{
+          const snap={
             tweet: doc.data().tweet,
             author:doc.data().author,
             id: doc.id
+
           }
+          docs.push(snap)
         })
           setData(docs)
         //console.warn(snapshot)
@@ -30,6 +33,7 @@ export default function App() {
       <h1>Hola mundo</h1>
       <Form data={data} setData={setData}/>
       {
+        
         data.map(item=>(
           <div key={item}>
             <p>{item.tweet}</p>
@@ -39,7 +43,7 @@ export default function App() {
           </div>
         ))
       }
-    </div> 
+    </div>
     </BrowserRouter>
     
   );
