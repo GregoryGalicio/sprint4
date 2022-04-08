@@ -20,7 +20,7 @@ const Form= ({data=[],setData})=>{
                 author:doc.data().author,
                 id: doc.id
             }
-            setData([newTweet,...data])  
+            setData([newTweet,...data]);  
         });
 
         setValue({
@@ -33,6 +33,7 @@ const Form= ({data=[],setData})=>{
         <form className="tweet-form">
             <textarea
                 name='tweet'
+                placeholder='Escribe tu Tweet'
                 value={tweet}
                 onChange={handleInput}
             >
