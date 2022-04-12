@@ -9,23 +9,28 @@ import Form from "./Form";
 
 export default function App() {
   const[data,setData]=useState([])
+
   useEffect(()=>{
-    fireStore.collection('tweets').get()
-      .then((snapshot) => { 
+    const unsubscribe=
+    fireStore.collection('tweets')
+    .onSnapshot((snapshot) => { 
         console.log(snapshot)
         const docs = []
         snapshot.forEach(doc =>{  //usamos forEach y no map posiblemente por version de firebase
           const snap={
             tweet: doc.data().tweet,
             author:doc.data().author,
-            id: doc.id
-
+            id: doc.id,
+            likes: doc.data().likes,
           }
           docs.push(snap) //del array vacio docs=[] se añade el objeto snap={twets:doc.data(aca se usa el metodo doc).tweet .... con el metodo  PUSH}
         })
           setData(docs)
         //console.warn(snapshot)
-      })
+      });
+      return()=>{
+        unsubscribe();
+      };
   },[]);
 
   
@@ -43,8 +48,9 @@ const deleteTweet=(id) => {
 };
 
 function likeTweet(id, likes){
-  console.log(id);
-  fireStore.doc(`tweets/${id}`).update({likes:300})
+  const innerLikes = likes||0;
+  /*console.log(id);*/
+  fireStore.doc(`tweets/${id}`).update({likes:innerLikes+1});
 }
 
   return (
@@ -61,9 +67,10 @@ function likeTweet(id, likes){
               <hr/>
             </div>
             <div className="tweet-actions">
-              <button onClick={() => likeTweet(item.id)} className="likes">
+              <button onClick={() => likeTweet(item.id, item.likes)} className="likes">
                 <img className='like' alt="like" src="corazon.svg"/>
-                <span>5</span>
+                {/*<span>{item.likes?item.likes:0}</span>*/}
+                <span>{item.likes||0}</span>
               </button>
             </div>
             <button className="delete" onClick={() => deleteTweet(item.id)}>
