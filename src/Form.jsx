@@ -30,14 +30,15 @@ const Form= ({data=[],setData})=>{
         
     }
     return (
-        <form className="tweet-form">
+        <form className="formulario">
             <textarea
+                className="EscribirTweet"
                 name='tweet'
                 placeholder='Escribe tu Tweet'
                 value={tweet}
                 onChange={handleInput}
-            >
-            </textarea>
+            />
+            <div className="input-group">
             <input
                 name='author'
                 placeholder='Author'
@@ -50,6 +51,8 @@ const Form= ({data=[],setData})=>{
             >
                 Submit
             </button>
+            </div>
+            
         </form>
     )
 

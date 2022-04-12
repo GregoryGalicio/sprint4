@@ -5,10 +5,12 @@ import './index.css'
 import './App.css';
 import {fireStore} from './firebase/firebase';
 import Form from "./Form";
+import RingLoader from "react-spinners/RingLoader";
 
 
 export default function App() {
-  const[data,setData]=useState([])
+  const[data,setData]=useState([]);
+  const[loading, setLoading]=useState(true);
 
   useEffect(()=>{
     const unsubscribe=
@@ -25,7 +27,8 @@ export default function App() {
           }
           docs.push(snap) //del array vacio docs=[] se añade el objeto snap={twets:doc.data(aca se usa el metodo doc).tweet .... con el metodo  PUSH}
         })
-          setData(docs)
+          setData(docs);
+          setLoading(false);
         //console.warn(snapshot)
       });
       return()=>{
@@ -36,7 +39,11 @@ export default function App() {
   
 
 const deleteTweet=(id) => {
-  //Filtramos State con el documento q no se necesita con Array (data es el array).filter
+  
+  const userConfirm = window.confirm("Estas seguro de borrar este tweet?");
+
+  if(userConfirm){
+     //Filtramos State con el documento q no se necesita con Array (data es el array).filter
   const updateTweets = data.filter((tweet) => {
     return tweet.id !== id
   });
@@ -45,8 +52,12 @@ const deleteTweet=(id) => {
 
   //actualizamos nuestro state con el array updateTweet actualizado esto para borrar documento de Firebase
   fireStore.doc(`tweets/${id}`).delete();
+  }
 };
 
+
+
+/*@description Funcion que actualiza likes en la base de datos*/
 function likeTweet(id, likes){
   const innerLikes = likes||0;
   /*console.log(id);*/
@@ -57,8 +68,10 @@ function likeTweet(id, likes){
     <BrowserRouter>
     <div className="App centered column">
       <h1>DEVS_UNITED</h1>
-      <Form data={data} setData={setData}/>
-      <section className="tweets">
+      <Form className="form" data={data} setData={setData}/>
+      {
+        loading?<RingLoader className="loader" color={"#477A0C"} loading={loading} size={100} />:
+        <section className="tweets">
         {data.map((item) => (
           <div className="tweet" key={item.id}>
             <div className="tweet-content">
@@ -79,6 +92,8 @@ function likeTweet(id, likes){
           </div>
         ))} 
       </section>
+      }
+      
     </div>
     </BrowserRouter>
   );
