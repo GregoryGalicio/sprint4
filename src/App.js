@@ -36,27 +36,35 @@ const deleteTweet=(id) => {
   //actualizamos nuestro state con el array updateTweets actualizado  (ya filtrado )
   setData(updateTweets);
 
-  //actualizamos nuestro state con el array updateTweet actualizado
+  //actualizamos nuestro state con el array updateTweet actualizado esto para borrar documento de Firebase
   fireStore.doc(`tweets/${id}`).delete();
 };
 
   return (
     <BrowserRouter>
-    <div className="App">
+    <div className="App centered column">
       <h1>DEVS_UNITED</h1>
       <Form data={data} setData={setData}/>
-      {
-        data.map(item=>(
-          <div key={item.id}>
-            <p>{item.tweet}</p>
-            <p>Author: <strong>{item.author}</strong></p>
+      <section className="tweets">
+        {data.map((item) => (
+          <div className="tweet" key={item.id}>
+            <div className="tweet-content">
+              <p>{item.tweet}</p>
+              <small>Author: <strong>@{item.author}</strong></small>
+              <hr/>
+            </div>
+            <div className="tweet-actions">
+              <button className="likes">
+                <img className='like' alt="like" src="corazon.svg"/>
+                <span>5</span>
+              </button>
+            </div>
             <button className="delete" onClick={() => deleteTweet(item.id)}>
               <img className='imgdelete' alt="imgdelete" src="Vector.png"/>
             </button>
-            <hr/>
           </div>
-        ))
-      } 
+        ))} 
+      </section>
     </div>
     </BrowserRouter>
   );
