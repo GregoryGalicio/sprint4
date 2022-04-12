@@ -47,8 +47,8 @@ body {
   margin-left: 10px;
 }
 
-.tweet-container {
-  background-color: white;
+.tweet {
+  background-color: #ddd;
   border-radius: 5px;
   max-width: 500px;
   margin: 15px auto;
@@ -56,25 +56,30 @@ body {
     0 0.5px 2.3px -3px rgba(0, 0, 0, 0.031),
     0 1.1px 4.6px -3px rgba(0, 0, 0, 0.039),
     0 2.2px 9.5px -3px rgba(0, 0, 0, 0.048), 0 6px 26px -3px rgba(0, 0, 0, 0.07);
-}
-.tweet {
   display: flex;
   justify-content: space-between;
+  position:relative;
+  flex-wrap: nowrap;
   padding: 15px;
-  /* background-color: lightblue; */
+  /*background-color: lightblue; */
 }
 
-.tweet-info {
+.tweet .tweet-content {
   display: flex;
   flex-direction: column;
   text-align: left;
+}
+.tweet .tweet-content p {
+  /*border-bottom: 1px solid #b2b2b2;*/
+  padding-bottom: 4px;
+  margin-bottom: 4px 8px;
 }
 
 .tweet-autor {
   font-size: 12px;
 }
 
-.acciones {
+.tweet-actions {
   display: flex;
   align-items: center;
 }

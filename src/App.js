@@ -28,6 +28,8 @@ export default function App() {
       })
   },[]);
 
+  
+
 const deleteTweet=(id) => {
   //Filtramos State con el documento q no se necesita con Array (data es el array).filter
   const updateTweets = data.filter((tweet) => {
@@ -39,6 +41,11 @@ const deleteTweet=(id) => {
   //actualizamos nuestro state con el array updateTweet actualizado esto para borrar documento de Firebase
   fireStore.doc(`tweets/${id}`).delete();
 };
+
+function likeTweet(id, likes){
+  console.log(id);
+  fireStore.doc(`tweets/${id}`).update({likes:300})
+}
 
   return (
     <BrowserRouter>
@@ -54,7 +61,7 @@ const deleteTweet=(id) => {
               <hr/>
             </div>
             <div className="tweet-actions">
-              <button className="likes">
+              <button onClick={() => likeTweet(item.id)} className="likes">
                 <img className='like' alt="like" src="corazon.svg"/>
                 <span>5</span>
               </button>
