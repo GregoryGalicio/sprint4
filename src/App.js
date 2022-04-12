@@ -11,6 +11,8 @@ import RingLoader from "react-spinners/RingLoader";
 export default function App() {
   const[data,setData]=useState([]);
   const[loading, setLoading]=useState(true);
+  const[favorites, setFavorites]=useState([]);
+  const[view, setView]=useState("feed");
 
   useEffect(()=>{
     const unsubscribe=
@@ -29,6 +31,9 @@ export default function App() {
         })
           setData(docs);
           setLoading(false);
+          setFavorites(docs.filter(item=>{
+            return item.likes>0;
+          }))
         //console.warn(snapshot)
       });
       return()=>{
@@ -36,7 +41,7 @@ export default function App() {
       };
   },[]);
 
-  
+
 
 const deleteTweet=(id) => {
   
@@ -72,7 +77,9 @@ function likeTweet(id, likes){
       {
         loading?<RingLoader className="loader" color={"#477A0C"} loading={loading} size={100} />:
         <section className="tweets">
-        {data.map((item) => (
+          <button type="button" onClick={()=>setView("feed")}>Tweets</button>
+          <button type="button" onClick={()=>setView("favorites")}>Favorites</button>
+        {(view === "feed"?data:favorites).map((item) => (
           <div className="tweet" key={item.id}>
             <div className="tweet-content">
               <p>{item.tweet}</p>
