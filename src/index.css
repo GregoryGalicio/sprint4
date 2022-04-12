@@ -50,7 +50,7 @@ body {
   color: white;
   padding: 8px;
   cursor: pointer;
-  background-color: rgb(240, 48, 34);
+  background-color:grey;
   margin-left: 10px;
 }
 
@@ -146,4 +146,8 @@ body {
   color:white;
   width: 25%;
   height:30px ;
+}
+.login{
+  align-items: center;
+ 
 }
