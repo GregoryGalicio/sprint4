@@ -17,7 +17,7 @@ export default function App() {
   const[user, setUser]= useState(null);
 
   useEffect(()=> {
-    const disconnect=fireStore.collection('tweets').get()
+    const disconnect= fireStore.collection('tweets')
     .onSnapshot((snapshot) =>{
     });
 
@@ -43,12 +43,14 @@ export default function App() {
             likes: doc.data().likes,
           }
           docs.push(snap) //del array vacio docs=[] se añade el objeto snap={twets:doc.data(aca se usa el metodo doc).tweet .... con el metodo  PUSH}
-        })
+        });
+          
           setData(docs);
           setLoading(false);
           setFavorites(docs.filter(item=>{
             return item.likes>0;
-          }))
+          
+          }));
         //console.warn(snapshot)
       });
       return()=>{
@@ -88,8 +90,14 @@ function likeTweet(id, likes){
   return (
     <BrowserRouter>
     <div className="App centered column">
-      <section>
-        <button type="button" onClick={user?logout:loginWithGoogle}>
+      <section className="login">
+        {user &&( 
+          <div classNam='user-info'>
+            <p>Hola {user.displayName}  </p>
+            <img alt={user.displayName} src={user.photoURL}/>
+          </div>
+        )}
+        <button className="btn-login" type="button" onClick={user?logout:loginWithGoogle}>
           {user? 'Cerrar': 'Iniciar' }Sesión
         </button>
       </section>
