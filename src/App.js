@@ -3,9 +3,10 @@ import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 //import logo from './logo.svg';
 import './index.css'
 import './App.css';
-import {fireStore} from './firebase/firebase';
+import {fireStore, loginWithGoogle, logout, auth} from './firebase/firebase';
 import Form from "./Form";
 import RingLoader from "react-spinners/RingLoader";
+
 
 
 export default function App() {
@@ -13,8 +14,22 @@ export default function App() {
   const[loading, setLoading]=useState(true);
   const[favorites, setFavorites]=useState([]);
   const[view, setView]=useState("feed");
+  const[user, setUser]= useState(null);
+
+  useEffect(()=> {
+    const disconnect=fireStore.collection('tweets').get()
+    .onSnapshot((snapshot) =>{
+    });
+
+    auth.onAuthStateChanged((user)=> {
+      console.warn('LOGGED WIDH:',user);
+      setUser(user); 
+    });
+    return () =>{disconnect()}
+  },[]);
 
   useEffect(()=>{
+  
     const unsubscribe=
     fireStore.collection('tweets')
     .onSnapshot((snapshot) => { 
@@ -39,6 +54,7 @@ export default function App() {
       return()=>{
         unsubscribe();
       };
+    
   },[]);
 
 
@@ -72,13 +88,18 @@ function likeTweet(id, likes){
   return (
     <BrowserRouter>
     <div className="App centered column">
+      <section>
+        <button type="button" onClick={user?logout:loginWithGoogle}>
+          {user? 'Cerrar': 'Iniciar' }Sesión
+        </button>
+      </section>
       <h1>DEVS_UNITED</h1>
       <Form className="form" data={data} setData={setData}/>
       {
         loading?<RingLoader className="loader" color={"#477A0C"} loading={loading} size={100} />:
         <section className="tweets">
-          <button type="button" onClick={()=>setView("feed")}>Tweets</button>
-          <button type="button" onClick={()=>setView("favorites")}>Favorites</button>
+          <button className="tweets-button" type="button" onClick={()=>setView("feed")}>Tweets</button>
+          <button className="tweets-fav" type="button" onClick={()=>setView("favorites")}>Favorites</button>
         {(view === "feed"?data:favorites).map((item) => (
           <div className="tweet" key={item.id}>
             <div className="tweet-content">

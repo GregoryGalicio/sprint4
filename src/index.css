@@ -119,3 +119,23 @@ body {
   align-items: center;
   margin: 0 auto;
 }
+.btn-tweet{
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+}
+
+.tweets .tweets-button{
+  background-color: grey;
+  color: white;
+  cursor: pointer;
+  margin: 10px;
+
+}
+.tweets .tweets-fav{
+  background-color: blueviolet;
+  color: white;
+  cursor: pointer;
+  margin: 10px;
+
+}
