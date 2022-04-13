@@ -2,56 +2,65 @@ import React from "react";
 import useForm from "./useForm";
 import { fireStore } from "./firebase/firebase";
 
-const Form= ({data=[],setData})=>{
-    const [value, handleInput, setValue]=useForm({
-        tweet:"",
-        author:"",
-    })
-    const {tweet, author}= value;
+const Form= ({
+            data = [],
+            setData, 
+            user,
+        }) => {
+    const [value, handleInput, setValue]=useForm({tweet:""});
+    
+    const {tweet}= value;
 
     function handleSubmit (e) {
         e.preventDefault()
         //añadiendo tweets
-        const addTweet =fireStore.collection("tweets").add(value)  /*Se coloca value en vez de colocar tweet:{tweet} y author:{author}*/
+        
+        const newTweet={
+            ...value,
+            uid: user.uid,
+            email: user.email,
+            author: user.displayName,
+            photo: user.photoURL,
+        }
+        console.warn(newTweet);
+
+        const addTweet =fireStore.collection("tweets").add(newTweet)  /*Se coloca newTweet en vez de colocar tweet:{tweet} y author:{author}*/
         const getDocument= addTweet.then(doc =>(doc.get()))
         getDocument.then(doc =>{
-            const newTweet={
+            const currentTweet={
                 tweet: doc.data().tweet,
                 author:doc.data().author,
-                id: doc.id
+                id: doc.id,
+                uid: doc.data().uid,
+                email:doc.data().email,
+                photo: doc.data().photoURL,
             }
-            setData([newTweet,...data]);  
+            setData([currentTweet,...data]);  
         });
 
-        setValue({
-            tweet:"",
-            author:"" 
-        });
-        
+        setValue({ tweet:"" });    
     }
+
     return (
         <form className="formulario">
             <textarea
-                className="EscribirTweet"
                 name='tweet'
                 placeholder='Escribe tu Tweet'
                 value={tweet}
                 onChange={handleInput}
             />
-            <div className="input-group">
-            <input
+            {/*<input
                 name='author'
                 placeholder='Author'
                 value={author}
                 onChange={handleInput}
-            />
+    /> Ya no necesitamos alimentar el autor manualmente se asociara al usuario*/}
             <button
                 className="btn-tweet"
                 onClick={handleSubmit}
             >
                 Submit
-            </button>
-            </div>
+            </button> 
             
         </form>
     )

@@ -1,5 +1,5 @@
 import React, {useEffect, useState } from 'react';
-import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter,/* Switch, Route, Link */} from 'react-router-dom';
 //import logo from './logo.svg';
 import './index.css'
 import './App.css';
@@ -22,9 +22,11 @@ export default function App() {
     });
 
     auth.onAuthStateChanged((user)=> {
-      console.warn('LOGGED WIDH:',user);
+      console.warn('LOGGED WITH:',user);
+      console.warn('UID:',user.uid);
       setUser(user); 
-    });
+      
+    });  
     return () =>{disconnect()}
   },[]);
 
@@ -102,7 +104,14 @@ function likeTweet(id, likes){
         </button>
       </section>
       <h1>DEVS_UNITED</h1>
-      <Form className="form" data={data} setData={setData}/>
+      {user&& (
+      <Form 
+        
+        data={data} 
+        setData={setData}
+        user={user || {}}
+      />
+      )}
       {
         loading?<RingLoader className="loader" color={"#477A0C"} loading={loading} size={100} />:
         <section className="tweets">
@@ -112,8 +121,9 @@ function likeTweet(id, likes){
           <div className="tweet" key={item.id}>
             <div className="tweet-content">
               <p>{item.tweet}</p>
-              <small>Author: <strong>@{item.author}</strong></small>
               <hr/>
+              <img alt={item.author} src={item.photo}/>
+              <small> Author: <strong>@{item.author}</strong></small>
             </div>
             <div className="tweet-actions">
               <button onClick={() => likeTweet(item.id, item.likes)} className="likes">
