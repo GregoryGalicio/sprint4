@@ -92,7 +92,12 @@ function likeTweet(id, likes){
           {user? 'Cerrar': 'Iniciar' }Sesión
         </button>
       </section>
-      {user===null && <h1>DEVS_UNITED</h1>}
+      {user===null && 
+      <div>
+        <h1>DEVS_UNITED</h1>
+        <h1>BIENVENIDOS AL TWEET PEGASINO</h1>
+      </div>
+      }
       {user&& (
       <Form 
         data={data} 
