@@ -16,51 +16,41 @@ export default function App() {
   const[view, setView]=useState("feed");
   const[user, setUser]= useState(null);
 
-  useEffect(()=> {
-    const disconnect= fireStore.collection('tweets')
-    .onSnapshot((snapshot) =>{
-    });
-
-    auth.onAuthStateChanged((user)=> {
-      console.warn('LOGGED WITH:',user);
-      console.warn('UID:',user.uid);
-      setUser(user); 
-      
-    });  
-    return () =>{disconnect()}
-  },[]);
-
-  useEffect(()=>{
-  
-    const unsubscribe=
-    fireStore.collection('tweets')
-    .onSnapshot((snapshot) => { 
-        console.log(snapshot)
-        const docs = []
-        snapshot.forEach(doc =>{  //usamos forEach y no map posiblemente por version de firebase
+  useEffect(() => {
+    const unsubscribe = fireStore
+      .collection("tweets")
+      .onSnapshot((snapshot) => {
+        const docs = [];
+        snapshot.forEach((doc) => {
+          
           const snap={
             tweet: doc.data().tweet,
             author:doc.data().author,
             id: doc.id,
+            email:doc.data().email,
+            uid:doc.data().uid,
             likes: doc.data().likes,
+            photo:doc.data().photoURL,
           }
-          docs.push(snap) //del array vacio docs=[] se añade el objeto snap={twets:doc.data(aca se usa el metodo doc).tweet .... con el metodo  PUSH}
-        });
-          
-          setData(docs);
-          setLoading(false);
-          setFavorites(docs.filter(item=>{
-            return item.likes>0;
-          
-          }));
-        //console.warn(snapshot)
-      });
-      return()=>{
-        unsubscribe();
-      };
-    
-  },[]);
 
+          docs.push(snap);
+        });
+        setData(docs);
+        setLoading(false);
+        setFavorites(docs.filter(item=>{
+          return item.likes>0;}))
+        
+      });
+
+    auth.onAuthStateChanged((user) => {
+      console.warn('LOGGED WITH:', user);
+      setUser(user);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
 
 const deleteTweet=(id) => {
