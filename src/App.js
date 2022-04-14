@@ -75,7 +75,6 @@ const deleteTweet=(id) => {
 /*@description Funcion que actualiza likes en la base de datos*/
 function likeTweet(id, likes){
   const innerLikes = likes||0;
-  /*console.log(id);*/
   fireStore.doc(`tweets/${id}`).update({likes:innerLikes+1});
 }
 
@@ -93,7 +92,7 @@ function likeTweet(id, likes){
           {user? 'Cerrar': 'Iniciar' }Sesión
         </button>
       </section>
-      <h1>DEVS_UNITED</h1>
+      {user===null && <h1>DEVS_UNITED</h1>}
       {user&& (
       <Form 
         data={data} 
@@ -104,19 +103,24 @@ function likeTweet(id, likes){
       {
         loading?<RingLoader className="loader" color={"#477A0C"} loading={loading} size={100} />:
         <section className="tweets">
-          <button className="tweets-button" type="button" onClick={()=>setView("feed")}>Tweets</button>
-          <button className="tweets-fav" type="button" onClick={()=>setView("favorites")}>Favorites</button>
-        {(view === "feed"?data:favorites).map((item) => (
+          {user &&
+          <div>
+            <button className="tweets-button" type="button" onClick={()=>setView("feed")}>Tweets</button>
+            <button className="tweets-fav" type="button" onClick={()=>setView("favorites")}>Favorites</button>
+          </div>}
+          
+
+        {user &&(view === "feed"?data:favorites).map((item) => (
           <div className="tweet" key={item.id}>
             <div className="tweet-content">
               <p>{item.tweet}</p>
-              
-              <img className="photo1" alt={item.author} src={item.photoURL}/>
+              <img alt={item.author} src={item.photo}/>
+              <hr/>
               <small>
                  Author: 
                  <strong>@{item.author}</strong>
-                 <hr/>
-                 <strong>@{item.email}</strong>
+                 <br/>
+                 <strong>{item.email}</strong>
               </small>
             </div>
             <div className="tweet-actions">
@@ -135,7 +139,7 @@ function likeTweet(id, likes){
           </div>
         ))} 
       </section>
-      }
+        }
     </div>
     </BrowserRouter>
   );
