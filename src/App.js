@@ -22,7 +22,7 @@ export default function App() {
       .onSnapshot((snapshot) => {
         const docs = [];
         snapshot.forEach((doc) => {
-          
+
           const snap={
             tweet: doc.data().tweet,
             author:doc.data().author,
@@ -96,7 +96,6 @@ function likeTweet(id, likes){
       <h1>DEVS_UNITED</h1>
       {user&& (
       <Form 
-        
         data={data} 
         setData={setData}
         user={user || {}}
@@ -111,9 +110,14 @@ function likeTweet(id, likes){
           <div className="tweet" key={item.id}>
             <div className="tweet-content">
               <p>{item.tweet}</p>
-              <hr/>
-              <img alt={item.author} src={item.photo}/>
-              <small> Author: <strong>@{item.author}</strong></small>
+              
+              <img className="photo1" alt={item.author} src={item.photoURL}/>
+              <small>
+                 Author: 
+                 <strong>@{item.author}</strong>
+                 <hr/>
+                 <strong>@{item.email}</strong>
+              </small>
             </div>
             <div className="tweet-actions">
               <button onClick={() => likeTweet(item.id, item.likes)} className="likes">
@@ -122,14 +126,16 @@ function likeTweet(id, likes){
                 <span>{item.likes||0}</span>
               </button>
             </div>
-            <button className="delete" onClick={() => deleteTweet(item.id)}>
+            {
+              (user!==null && user.uid === item.uid ) &&
+              <button className="delete" onClick={() => deleteTweet(item.id)}>
               <img className='imgdelete' alt="imgdelete" src="Vector.png"/>
             </button>
+            }
           </div>
         ))} 
       </section>
       }
-      
     </div>
     </BrowserRouter>
   );
