@@ -21,6 +21,7 @@ const Form= ({
             email: user.email,
             author: user.displayName,
             photo: user.photoURL,
+            date: Date.now()
         }
         console.warn(newTweet);
 

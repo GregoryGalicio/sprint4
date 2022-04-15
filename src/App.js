@@ -17,8 +17,10 @@ export default function App() {
   const[user, setUser]= useState(null);
 
   useEffect(() => {
+    
     const unsubscribe = fireStore
       .collection("tweets")
+      .orderBy("date")
       .onSnapshot((snapshot) => {
         const docs = [];
         snapshot.forEach((doc) => {
@@ -30,10 +32,13 @@ export default function App() {
             email:doc.data().email,
             uid:doc.data().uid,
             likes: doc.data().likes,
-            photo:doc.data().photoURL,
+            photo:doc.data().photo,
+            date:doc.data().date,
+          
           }
 
-          docs.push(snap);
+          docs.unshift(snap); //en vez de push para agregarlo al principio
+
         });
         setData(docs);
         setLoading(false);
@@ -51,6 +56,48 @@ export default function App() {
       unsubscribe();
     };
   }, []);
+
+  useEffect(() => {
+    if (user){
+
+      console.log('DATA',data)
+      console.log('Entrando al efecto', user)
+      fireStore.collection("users")
+        .get()
+        .then(snapshot => {
+
+          if (!snapshot.size){
+            return fireStore.collection('user').add({
+              displayName: user.displayName,
+              photo: user.photoURL,
+              uid: user.uid,
+              email: user.email, 
+              favorites: [],  
+            })  
+          } else{
+            snapshot.forEach(doc => {
+              const userDoc=doc.data()
+              if(userDoc.uid !==user.uid){ //tenemos que revisar ESTA PARTEEEEE
+
+                return fireStore.collection('user').add({
+                  displayName: user.displayName,
+                  photo: user.photoURL,
+                  uid: user.uid,
+                  email: user.email,
+                  favorites: []
+                })
+              }
+            })
+          }
+        })
+        .then(doc => doc.get())
+        .then(userDoc =>{
+          setUser(userDoc)
+          console.warn(userDoc)
+        })
+    }
+  }, [user])
+
 
 
 const deleteTweet=(id) => {
