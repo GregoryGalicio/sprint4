@@ -39,7 +39,11 @@ const Form= ({
             setData([currentTweet,...data]);  
         });
 
-        setValue({ tweet:"" });    
+        setValue({
+            tweet:"",
+            username:"",
+        
+        });    
     }
 
     return (

@@ -1,5 +1,5 @@
 import React, {useEffect, useState } from 'react';
-import { BrowserRouter,/* Switch, Route, Link */} from 'react-router-dom';
+//import { BrowserRouter,/* Switch, Route, Link */} from 'react-router-dom';
 //import logo from './logo.svg';
 import './index.css'
 import './App.css';
@@ -17,15 +17,16 @@ export default function App() {
   const[user, setUser]= useState(null);
 
   useEffect(() => {
-    
+      
     const unsubscribe = fireStore
       .collection("tweets")
       .orderBy("date")
       .onSnapshot((snapshot) => {
-        const docs = [];
-        snapshot.forEach((doc) => {
+        const docs = []
+        snapshot.forEach(doc => {
 
-          const snap={
+          const snap = {
+            username : doc.data().username,
             tweet: doc.data().tweet,
             author:doc.data().author,
             id: doc.id,
@@ -35,68 +36,117 @@ export default function App() {
             photo:doc.data().photo,
             date:doc.data().date,
           
-          }
+          };
 
-          docs.unshift(snap); //en vez de push para agregarlo al principio
+          docs.unshift(snap) //en vez de push para agregarlo al principio
 
-        });
-        setData(docs);
-        setLoading(false);
-        setFavorites(docs.filter(item=>{
-          return item.likes>0;}))
+        })
+
+        setData(docs)
+        setLoading(false)
+       // setFavorites(docs.filter(item=>{
+        //return item.likes>0;}))
         
       });
 
     auth.onAuthStateChanged((user) => {
-      console.warn('LOGGED WITH:', user);
-      setUser(user);
+      //console.warn('LOGGED WITH:', user);
+      setUser(user)
+
+      if (user){
+        fireStore.collection('users').get()
+          .then( snapshot => {
+            snapshot.forEach( doc => {
+
+              const userDoc = doc.data() //habia doc.data() lo cambie por sanpshot.data() y funciono
+              if (userDoc.uid === user.uid){
+                setUser({
+                ...user, ...userDoc
+              })
+            }
+          })
+        })
+      }
     });
 
     return () => {
-      unsubscribe();
-    };
+      unsubscribe()
+    }
   }, []);
 
   useEffect(() => {
     if (user){
+      if(data.length && user.favorites && user.favorites.length){
+        const favorites= user.favorites.map(favoritesId => {
+          const tweetFavorites = data.find(item => item.id === favoritesId)
+          console.log(data, favoritesId)
+          return tweetFavorites
+        })
+          .filter( item => item !==undefined)
+          setFavorites(favorites)
+          console.log('FAVORITESSSSS',favorites)
+      }
+      
 
       console.log('DATA',data)
       console.log('Entrando al efecto', user)
-      fireStore.collection("users")
-        .get()
-        .then(snapshot => {
 
-          if (!snapshot.size){
-            return fireStore.collection('user').add({
-              displayName: user.displayName,
-              photo: user.photoURL,
-              uid: user.uid,
-              email: user.email, 
-              favorites: [],  
-            })  
-          } else{
-            snapshot.forEach(doc => {
-              const userDoc=doc.data()
-              if(userDoc.uid !==user.uid){ //tenemos que revisar ESTA PARTEEEEE
+      const findUser = fireStore.collection('users').where("uid","==",user.uid).get();
 
-                return fireStore.collection('user').add({
-                  displayName: user.displayName,
-                  photo: user.photoURL,
-                  uid: user.uid,
-                  email: user.email,
-                  favorites: []
-                })
-              }
-            })
-          }
-        })
-        .then(doc => doc.get())
-        .then(userDoc =>{
-          setUser(userDoc)
-          console.warn(userDoc)
-        })
+      findUser.then((query)=>{
+        console.log('query', query.empty)
+
+        //si el usuario con campo uid NO existe en la collection "users"; empty === true
+        //si el usuario con campo uid SI existe en la collection "users"; emprty === false
+
+        if (query.empty) {
+        	fireStore.collection('users').add({
+        		uid: user.uid,
+        		name: user.displayName, //aca colocaron name en vez de userName
+        		photo: user.photoURL,
+            email: user.email,
+        		favorites: []
+        	});
+        }
+      })
+
+
+      
+      // fireStore.collection("users")
+      //   .get()
+      //   .then(snapshot => {
+
+      //     if (!snapshot.size){
+      //       return fireStore.collection('users').add({
+      //         displayName: user.displayName,
+      //         photo: user.photoURL,
+      //         uid: user.uid,
+      //         email: user.email, 
+      //         favorites: [],  
+      //       })  
+      //     } else{
+      //       snapshot.forEach(doc => {
+      //         const userDoc = doc.data()
+      //           if(userDoc.uid !==user.uid){ //tenemos que revisar ESTA PARTEEEEE
+
+      //             return fireStore.collection('users').add({
+      //               displayName: user.displayName,
+      //               photo: user.photoURL,
+      //               uid: user.uid,
+      //               email: user.email,
+      //               favorites: []
+      //           })
+      //         }
+      //       })
+      //     }
+      //   })
+      //   .then(doc => doc.get())
+      //   .then(userDoc =>{
+      //     setUser(userDoc)
+      //     console.warn(userDoc)
+      //   })
     }
-  }, [user])
+  }, [user, data])
 
 
 
@@ -120,18 +170,35 @@ const deleteTweet=(id) => {
 
 
 /*@description Funcion que actualiza likes en la base de datos*/
+
 function likeTweet(id, likes){
   const innerLikes = likes||0;
-  fireStore.doc(`tweets/${id}`).update({likes:innerLikes+1});
+  fireStore.doc(`tweets/${id}`).update({likes: innerLikes + 1});
+
+  fireStore.collection("users")
+    .get()
+    .then(snapshot =>{
+      snapshot.forEach(doc => {
+        const userDoc=doc.data()
+        if (userDoc.uid === user.uid){
+          //console.log(doc.id)
+          fireStore.doc(`users/${doc.id}`).update({
+            favorites: [...userDoc.favorites, id]
+          })
+        }
+      })
+    })
+    setUser({
+      ...user, favorites:[...user.favorites, id]
+    })
 }
 
   return (
-    <BrowserRouter>
     <div className="App centered column">
       <section className="login">
         {user &&( 
           <div classNam='user-info'>
-            <p>Hola {user.displayName}  </p>
+            <p>!!Hola {user.displayName}!!</p>
             <img alt={user.displayName} src={user.photoURL}/>
           </div>
         )}
@@ -157,7 +224,7 @@ function likeTweet(id, likes){
         <section className="tweets">
           {user &&
           <div>
-            <button className="tweets-button" type="button" onClick={()=>setView("feed")}>Tweets</button>
+            <button className="tweets-button" type="button" onClick={()=>setView("feed")}>Posts</button>
             <button className="tweets-fav" type="button" onClick={()=>setView("favorites")}>Favorites</button>
           </div>}
           
@@ -193,7 +260,6 @@ function likeTweet(id, likes){
       </section>
         }
     </div>
-    </BrowserRouter>
   );
 }
 

@@ -66,10 +66,12 @@ body {
   font-size: 13px;
   border-radius: 10px;
   color: white;
+  margin-top: 6%;
   padding: 8px;
   cursor: pointer;
   background-color:grey;
   margin-left: 10px;
+  height: 30%;
 }
 
 .tweet {
@@ -170,4 +172,8 @@ body {
 .login{
   align-items: center;
  
+}
+
+.tweet-content img{
+  width: 25%; 
 }
