@@ -8,6 +8,7 @@
   top: 52px;
 
   background: #150714;
+  
         
     
 }
@@ -28,14 +29,15 @@
 
 .user{
 position: absolute;
-width: 320px;
-height: 23px;
+/* width: 320px;
+height: 100px; */
 left: calc(50% - 320px/2);
+right: calc(50% - 320px/2); 
 top: 239px;
 font-family: 'Silkscreen';
 font-style: normal;
 font-weight: 700;
-font-size: auto;
+font-size: 30px;
 line-height: 30px;
 display: flex;
 align-items: center;
@@ -44,10 +46,11 @@ letter-spacing: -0.333333px;
 
 color: #150714;
 
-border: 16px solid #FFEA5C;
+border: 10px solid #FFEA5C;
 margin-bottom: 20px;
 margin-top: -50px;
-justify-content:space-around;
+justify-content:center;
+background-color: #FFEA5C;
 
 }
 

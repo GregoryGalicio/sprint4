@@ -10,7 +10,6 @@ function Header({ displayName, photoURL}) {
     <button className="user">
       <p className="headName">{displayName}</p>
     </button>
-   
     </div> 
   );
 }
