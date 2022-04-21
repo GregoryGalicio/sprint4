@@ -2,6 +2,7 @@ import React from "react";
 import useForm from "./useForm";
 import { fireStore } from "./firebase/firebase";
 
+
 const Form= ({
             data = [],
             setData, 
@@ -29,20 +30,21 @@ const Form= ({
         const getDocument= addTweet.then(doc =>(doc.get()))
         getDocument.then(doc =>{
             const currentTweet={
+                username: doc.data().displayName,
                 tweet: doc.data().tweet,
-                author:doc.data().author,
+                //author:doc.data().author,
                 id: doc.id,
                 uid: doc.data().uid,
                 email:doc.data().email,
                 photo: doc.data().photoURL,
+                likes: doc.data().likes,
             }
             setData([currentTweet,...data]);  
         });
 
         setValue({
-            tweet:"",
-            username:"",
-        
+            tweet:""
+            
         });    
     }
 

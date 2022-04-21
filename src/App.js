@@ -1,11 +1,13 @@
 import React, {useEffect, useState } from 'react';
-//import { BrowserRouter,/* Switch, Route, Link */} from 'react-router-dom';
+import { BrowserRouter ,Route ,Routes /* Switch, Route, Link */} from 'react-router-dom';
 //import logo from './logo.svg';
 import './index.css'
 import './App.css';
 import {fireStore, loginWithGoogle, logout, auth} from './firebase/firebase';
 import Form from "./Form";
 import RingLoader from "react-spinners/RingLoader";
+import Home from './Home';
+import Feed from './Feed';
 
 
 
@@ -15,6 +17,7 @@ export default function App() {
   const[favorites, setFavorites]=useState([]);
   const[view, setView]=useState("feed");
   const[user, setUser]= useState(null);
+ 
 
   useEffect(() => {
       
@@ -102,49 +105,13 @@ export default function App() {
         if (query.empty) {
         	fireStore.collection('users').add({
         		uid: user.uid,
-        		name: user.displayName, //aca colocaron name en vez de userName
+        		displayName: user.displayName, //aca colocaron name en vez de userName
         		photo: user.photoURL,
             email: user.email,
         		favorites: []
         	});
         }
       })
-
-
-      
-      // fireStore.collection("users")
-      //   .get()
-      //   .then(snapshot => {
-
-      //     if (!snapshot.size){
-      //       return fireStore.collection('users').add({
-      //         displayName: user.displayName,
-      //         photo: user.photoURL,
-      //         uid: user.uid,
-      //         email: user.email, 
-      //         favorites: [],  
-      //       })  
-      //     } else{
-      //       snapshot.forEach(doc => {
-      //         const userDoc = doc.data()
-      //           if(userDoc.uid !==user.uid){ //tenemos que revisar ESTA PARTEEEEE
-
-      //             return fireStore.collection('users').add({
-      //               displayName: user.displayName,
-      //               photo: user.photoURL,
-      //               uid: user.uid,
-      //               email: user.email,
-      //               favorites: []
-      //           })
-      //         }
-      //       })
-      //     }
-      //   })
-      //   .then(doc => doc.get())
-      //   .then(userDoc =>{
-      //     setUser(userDoc)
-      //     console.warn(userDoc)
-      //   })
     }
   }, [user, data])
 
@@ -194,25 +161,39 @@ function likeTweet(id, likes){
 }
 
   return (
+    
     <div className="App centered column">
+      <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/feed" element={<Feed />}></Route>
+      </Routes>
+      </BrowserRouter>
       <section className="login">
+      {user===null && 
+      <div>
+        <br/>
+        <img className='devs-united' alt="devs" src="logo big.svg"/>
+        <h1 className="titulo1">BIENVENIDOS AL TWEET PEGASINO</h1>
+        <h1 className="titulo2">a social network dedicated to programmers</h1>
+      </div>
+      }
         {user &&( 
           <div classNam='user-info'>
             <p>!!Hola {user.displayName}!!</p>
             <img alt={user.displayName} src={user.photoURL}/>
           </div>
         )}
+        <br/>
         <button className="btn-login" type="button" onClick={user?logout:loginWithGoogle}>
-          {user? 'Cerrar': 'Iniciar' }Sesión
+          {user? 'Cerrar':(<img className='signIn' alt="signIn" src="google sign in 2.svg"/>) }
         </button>
+        <p className="footer">
+        © 2020 Devs_United - BETA
+        </p>
       </section>
-      {user===null && 
-      <div>
-        <h1>DEVS_UNITED</h1>
-        <h1>BIENVENIDOS AL TWEET PEGASINO</h1>
-      </div>
-      }
-      {user&& (
+      
+      {user && (
       <Form 
         data={data} 
         setData={setData}
@@ -235,6 +216,7 @@ function likeTweet(id, likes){
               <p>{item.tweet}</p>
               <img alt={item.author} src={item.photo}/>
               <hr/>
+              <p>{item.date}</p>
               <small>
                  Author: 
                  <strong>@{item.author}</strong>
