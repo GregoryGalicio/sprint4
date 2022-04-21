@@ -232,32 +232,41 @@ function likeTweet(id, likes){
         {user &&(view === "feed"?data:favorites).map((item) => (
           
           <div className="tweet" key={item.id}>
-            <div className="tweet-content">
-              <p>{item.tweet}</p>
+            <div className="photo">
               <img alt={item.author} src={item.photo}/>
-              <hr/>
-              <p>-{new Date(item.date).toLocaleDateString("es-PE",{day:"numeric"})} {new Date(item.date).toLocaleDateString("es-PE",{month:"short"})}</p>
-              <small>
-                 Author: 
-                 <strong>@{item.author}</strong>
-                 <br/>
-                 <strong>{item.email}</strong>
+            </div>
+            <div className="tweet-content">
+              <div className="head">
+                <div className="headTweet">
+                <button className="userTweet">
+                   <p >{item.author}</p>
+                </button>
+                <p>-{new Date(item.date).toLocaleDateString("es-PE",{day:"numeric"})} {new Date(item.date).toLocaleDateString("es-PE",{month:"short"})}</p>
+                </div>
+                
+                {
+                (user!==null && user.uid === item.uid ) &&
+                <button className="delete" onClick={() => deleteTweet(item.id)}>
+                  <img className='imgdelete' alt="imgdelete" src="Vector.png"/>
+                </button>
+              }
+              </div>  
+              <div className="tweetContent1">
+              <p >{item.tweet}</p>
+              </div>
+              
+              <small className="footerTweet">
+                  <strong>{item.email}</strong>
+                  <button onClick={() => likeTweet(item.id, item.likes)} className="likes">
+                    <img className='like' alt="like" src="corazon.svg"/>
+                    <span>{item.likes||0}</span>
+                  </button>
               </small>
             </div>
-            <div className="tweet-actions">
-              <button onClick={() => likeTweet(item.id, item.likes)} className="likes">
-                <img className='like' alt="like" src="corazon.svg"/>
-                {/*<span>{item.likes?item.likes:0}</span>*/}
-                <span>{item.likes||0}</span>
-              </button>
-            </div>
-            {
-              (user!==null && user.uid === item.uid ) &&
-              <button className="delete" onClick={() => deleteTweet(item.id)}>
-              <img className='imgdelete' alt="imgdelete" src="Vector.png"/>
-            </button>
-            }
+            
+            
           </div>
+          
         ))} 
       </section>
         }

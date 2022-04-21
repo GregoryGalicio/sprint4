@@ -46,6 +46,27 @@ body {
   margin-top: 30px;
   margin-bottom: 30px;
 }
+
+.userTweet{
+
+width: 150px;
+height: 22px;
+left: calc(50% - 150px/2 - 147.5px);
+top: 572px;
+
+font-family: 'Silkscreen';
+font-style: normal;
+font-weight: 700;
+font-size: auto;
+line-height: 20px;
+display: flex;
+align-items: center;
+letter-spacing: -0.333333px;
+
+color: #2E132C;
+background-color:#800FFF;
+border: ;
+}
 .footer{
 position: absolute;
 width: 541px;
@@ -94,14 +115,25 @@ color: #60265B;
   height: 113px;
 }
 .btn-tweet {
-  margin-bottom: 4px;
-  margin-top: 4px;
-  width: 200px;
-  background-color: #150714;
-  color: #60265B;
-  cursor: pointer;
-  margin-top: 4px;
+margin-bottom: 4px;
+margin-top: 4px;
+width: 200px;
+background-color: #150714;
+color: #60265B;
+cursor: pointer;
+margin-top: 4px;
+margin-left: 200px;
+font-family: 'Silkscreen';
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 20px;
+display: flex;
+align-items: center;
+text-align: center;
+letter-spacing: -0.333333px;
   }
+
 .login {
   display: flex;
   align-items: center;
@@ -143,30 +175,37 @@ color: #60265B;
   font-size: 13px;
   border-radius: 10px;
   color: white;
-  margin-top: 6%;
-  padding: 8px;
+  margin-top: 0%;
+  padding: 0px;
   cursor: pointer;
-  background-color:#60265B;
+  background-color:#2E132C ;
   margin-left: 10px;
   height: 30%;
   border:none;
+  
 }
 
 .tweet {
-  background-color: #ddd;
-  border-radius: 5px;
+  background-color: #2E132C;
+  border-radius: 1px;
   max-width: 500px;
   margin: 15px auto;
-  box-shadow: 0 0.2px 0.9px -3px rgba(0, 0, 0, 0.022),
-    0 0.5px 2.3px -3px rgba(0, 0, 0, 0.031),
-    0 1.1px 4.6px -3px rgba(0, 0, 0, 0.039),
-    0 2.2px 9.5px -3px rgba(0, 0, 0, 0.048), 0 6px 26px -3px rgba(0, 0, 0, 0.07);
+  box-shadow: 0px 2px #60265B;
   display: flex;
   justify-content: space-between;
   position:relative;
   flex-wrap: nowrap;
   padding: 15px;
   /*background-color: lightblue; */
+  color:white;
+  font-family: 'Fira Code';
+  font-style: normal;
+  font-weight: 450;
+  font-size: 18px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.333333px;
 }
 
 .tweet .tweet-content {
@@ -178,6 +217,24 @@ color: #60265B;
   /*border-bottom: 1px solid #b2b2b2;*/
   padding-bottom: 4px;
   margin-bottom: 4px 8px;
+}
+.tweetContent1{
+/* position: absolute; */
+width: 450px;
+height: 136px;
+left: calc(50% - 500px/2 + 37px);
+top: 335px;
+
+font-family: 'Fira Code';
+font-style: normal;
+font-weight: 450;
+font-size: 18px;
+line-height: 24px;
+display: flex;
+align-items: center;
+letter-spacing: -0.333333px;
+
+color: #FFFFFF;
 }
 
 .tweet-autor {
@@ -208,6 +265,9 @@ color: #60265B;
   margin-right: 5px;
   height: 20px;
    
+}
+.likes span{
+  color:red
 }
 
 .form{
@@ -250,11 +310,29 @@ color: #60265B;
  
 }
 
-.tweet-content img{
-   
+.photo img{  
   width: 56px;
   height: 56px;
   left: calc(50% - 56px/2 - 258px);
   top: 366px;
   border-radius: 50%;
+  
+  margin-right:10px;
+  margin-bottom: 136px;
+}
+.head{
+  display: flex;
+  justify-content:space-between;
+  margin-bottom: 10px;
+  width: 410px;
+}
+.headTweet{
+  display:flex;
+  align-items: center;
+
+}
+.footerTweet{
+  display:flex;
+  align-items: center;
+
 }
