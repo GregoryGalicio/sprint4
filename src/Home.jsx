@@ -1,45 +1,45 @@
-import React, { useEffect, useState }from 'react';
-import {useNavigate} from  'react-router-dom';
-import Feed from './Feed';
-import {loginWithGoogle, auth} from './firebase/firebase';
+// import React, { useEffect, useState }from 'react';
+// import {useNavigate} from  'react-router-dom';
+// import Feed from './Feed';
+// import {loginWithGoogle, auth} from './firebase/firebase';
 
 
-export default function Home() {
-    const [user, setUser] = useState(null);
+// export default function Home() {
+//     const [user, setUser] = useState(null);
     
 
-    auth.onAuthStateChanged((user)=>{
-        //console.log( "usuario logeado");
-        setUser(user);
-    })
+//     auth.onAuthStateChanged((user)=>{
+//         //console.log( "usuario logeado");
+//         setUser(user);
+//     })
 
-    useEffect((user) => {
-        if(user !== null){
-            navigate("/feed")
-        }
+//     useEffect((user) => {
+//         if(user !== null){
+//             navigate("/feed")
+//         }
         
-    }, [user])
+//     }, [user])
 
-    function fnLogin () {
-        loginWithGoogle();
-        setUser(user);
-    }
+//     function fnLogin () {
+//         loginWithGoogle();
+//         setUser(user);
+//     }
     
-    const navigate=useNavigate()
-  return (
-    <div>
-        <br/>
-        <br/>
-        <img className='devs-united' alt="devs" src="logo big.svg"/>
-        <h1 className="titulo1">BIENVENIDOS AL TWEET PEGASINO</h1>
-        <h1 className="titulo2">a social network dedicated to programmers</h1>
-        <button className="btn-login" type="button" onClick={fnLogin}>
-          <img className='signIn' alt="signIn" src="google sign in 2.svg"/> 
-        </button>
-        <br/>
-        <p className="footer">
-        © 2020 Devs_United - <span>BETA</span>
-        </p>
-    </div>
-  )
-}
+//     const navigate=useNavigate()
+//   return (
+//     <div>
+//         <br/>
+//         <br/>
+//         <img className='devs-united' alt="devs" src="logo big.svg"/>
+//         <h1 className="titulo1">BIENVENIDOS AL TWEET PEGASINO</h1>
+//         <h1 className="titulo2">a social network dedicated to programmers</h1>
+//         <button className="btn-login" type="button" onClick={fnLogin}>
+//           <img className='signIn' alt="signIn" src="google sign in 2.svg"/> 
+//         </button>
+//         <br/>
+//         <p className="footer">
+//         © 2020 Devs_United - <span>BETA</span>
+//         </p>
+//     </div>
+//   )
+// }

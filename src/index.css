@@ -49,8 +49,8 @@ body {
 
 .userTweet{
 
-width: 150px;
-height: 22px;
+/* width: 150px;
+height: 22px; */
 left: calc(50% - 150px/2 - 147.5px);
 top: 572px;
 

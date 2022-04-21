@@ -11,12 +11,10 @@ justify-content: center;
 }
 
 .displayName{
-/* position: absolute; */
-width: 361px;
-height: 20px;
+/* width: 361px;
+height: 20px; */
 left: 54px;
 top: 16px;
-margin-top: 20px;
 
 font-family: 'Silkscreen';
 font-style: normal;

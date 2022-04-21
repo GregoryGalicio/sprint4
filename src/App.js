@@ -1,13 +1,13 @@
 import React, {useEffect, useState } from 'react';
-import { BrowserRouter ,Route ,Routes /* Switch, Route, Link */} from 'react-router-dom';
+// import { BrowserRouter ,Route ,Routes /* Switch, Route, Link */} from 'react-router-dom';
 //import logo from './logo.svg';
 import './index.css'
 import './App.css';
 import {fireStore, loginWithGoogle, logout, auth} from './firebase/firebase';
 import Form from "./Form";
 import RingLoader from "react-spinners/RingLoader";
-import Home from './Home';
-import Feed from './Feed';
+// import Home from './Home';
+// import Feed from './Feed';
 import Head from "./components/head/Head";
 import Header from "./components/header/Header";
 import Button from "./components/button/Button";
@@ -85,22 +85,22 @@ export default function App() {
       if(data.length && user.favorites && user.favorites.length){
         const favorites= user.favorites.map(favoritesId => {
           const tweetFavorites = data.find(item => item.id === favoritesId)
-          console.log(data, favoritesId)
+          // console.log(data, favoritesId)
           return tweetFavorites
         })
           .filter( item => item !==undefined)
           setFavorites(favorites)
-          console.log('FAVORITESSSSS',favorites)
+          // console.log('FAVORITESSSSS',favorites)
       }
       
 
-      console.log('DATA',data)
-      console.log('Entrando al efecto', user)
+      // console.log('DATA',data)
+      // console.log('Entrando al efecto', user)
 
       const findUser = fireStore.collection('users').where("uid","==",user.uid).get();
 
       findUser.then((query)=>{
-        console.log('query', query.empty)
+        // console.log('query', query.empty)
 
         //si el usuario con campo uid NO existe en la collection "users"; empty === true
         //si el usuario con campo uid SI existe en la collection "users"; emprty === false

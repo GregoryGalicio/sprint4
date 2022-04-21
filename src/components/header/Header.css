@@ -16,19 +16,14 @@
     
   margin-top: 30px;  
   border-radius: 50%;
-    width: 134px;
-    height: 280.6px;
-    left: calc(50% - 134px/2 + 0.5px);
-    top: 74px;
-    border: 5px solid #FFEA5C;
-
-    width: 134px;
-    height: 134px;
-    left: calc(50% - 134px/2 + 0.5px);
-    top: 74px;
-
-    background: #C4C4C4;
-    border: 5px solid #FFEA5C;
+  left: calc(50% - 134px/2 + 0.5px);
+  top: 74px;
+  border: 5px solid #FFEA5C;
+  width: 134px;
+  height: 134px;
+  left: calc(50% - 134px/2 + 0.5px);
+  top: 74px;
+  background: #C4C4C4;
   }
 
 .user{
@@ -40,7 +35,7 @@ top: 239px;
 font-family: 'Silkscreen';
 font-style: normal;
 font-weight: 700;
-font-size: 30px;
+font-size: auto;
 line-height: 30px;
 display: flex;
 align-items: center;
@@ -52,5 +47,7 @@ color: #150714;
 border: 16px solid #FFEA5C;
 margin-bottom: 20px;
 margin-top: -50px;
+justify-content:space-around;
 
 }
+
