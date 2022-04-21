@@ -8,7 +8,8 @@ top: 52px;
 
 background: #150714;
 display: flex;
-justify-content: center
+justify-content: center;
+margin-top: 235px;
     
 }
 
@@ -38,6 +39,8 @@ bottom: 0%;
 background: #60265B;
 width: 302.5px;
 height: 46px;
+cursor: pointer;
+
 }
 .tweets-favorites{
     left: 0%;
@@ -65,5 +68,6 @@ height: 46px;
     background:#150714; 
     width: 302.5px;
     height: 46px;
+    cursor: pointer;
     }
     

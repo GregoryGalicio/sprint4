@@ -180,7 +180,7 @@ function likeTweet(id, likes){
         <br/>
         <img className='devs-united' alt="devs" src="logo big.svg"/>
         <h1 className="titulo1">BIENVENIDOS AL TWEET PEGASINO</h1>
-        <h1 className="titulo2">a social network dedicated to programmers and pegasiB people</h1>
+        <h1 className="titulo2">a social network dedicated to programmers</h1>
         <button className="btn-login" type="button" onClick={loginWithGoogle}>
           <img className='signIn' alt="signIn" src="google sign in 2.svg"/> 
         </button>
@@ -208,33 +208,26 @@ function likeTweet(id, likes){
           displayName={user.displayName}
           photoURL={user.photoURL}
           />
-          
         }
         <br/>
-        <Button
+        {user && <Button
         setView={setView}
-        />
-        {/* <p className="footer">
-        © 2020 Devs_United - BETA
-        </p> */}
-      </section>
-      
-      {user &&(
+        />}
+  
+        {user &&(
       <Form 
         data={data} 
         setData={setData}
         user={user || {}}
       />
       )}
+
+      </section>
+      
       {
         loading?<RingLoader className="loader" color={"#477A0C"} loading={loading} size={100} />:
         <section className="tweets">
-          {user &&
-          <div>
-            <button className="tweets-button" type="button" onClick={()=>setView("feed")}>Posts</button>
-            <button className="tweets-fav" type="button" onClick={()=>setView("favorites")}>Favorites</button>
-          </div>}
-          
+         
 
         {user &&(view === "feed"?data:favorites).map((item) => (
           

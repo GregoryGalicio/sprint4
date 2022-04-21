@@ -52,7 +52,7 @@ const Form= ({
         <form className="formulario">
             <textarea
                 name='tweet'
-                placeholder='Escribe tu Tweet'
+                placeholder=' What’s happening?'
                 value={tweet}
                 onChange={handleInput}
             />
@@ -66,7 +66,7 @@ const Form= ({
                 className="btn-tweet"
                 onClick={handleSubmit}
             >
-                Submit
+                POST
             </button> 
             
         </form>

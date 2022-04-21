@@ -34,7 +34,7 @@ body {
   font-family: silkscreen;
   color: white;
   font-size: 36px;
-  margin-top: 50px;
+  margin-top: 150px;
   padding-left: 10px;
   padding-right: 10px;
 }
@@ -78,19 +78,30 @@ color: #60265B;
     border: 5px solid #FFEA5C;
   }
 
-.loggin,
+
 .formulario {
   align-items: flex-end;
-  background-color: #ccc;
+  background-color: #150714;
   box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.02),
     0px 1px 1px 0px rgba(0, 0, 0, 0.02), 0px 4px 4px 0px rgba(0, 0, 0, 0.4);
   display: flex;
   flex-direction: column;
   margin: 0 auto 24px;
-  max-width: 480px;
+  /* max-width: 480px; */
   padding: 4px 8px;
-  margin-top: 100px;
+  margin-top: 310px;
+  width: 605px;
+  height: 113px;
 }
+.btn-tweet {
+  margin-bottom: 4px;
+  margin-top: 4px;
+  width: 200px;
+  background-color: #150714;
+  color: #60265B;
+  cursor: pointer;
+  margin-top: 4px;
+  }
 .login {
   display: flex;
   align-items: center;
@@ -117,11 +128,8 @@ color: #60265B;
 
 
 .formulario input,
-.btn-tweet {
-  margin-bottom: 4px;
-  margin-top: 4px;
-  width: 240px;
-}
+
+
 
 .formulario input {
   padding: 5px;
@@ -209,13 +217,7 @@ color: #60265B;
   align-items: center;
   margin: 0 auto;
 }
-.btn-tweet{
-  background-color: blue;
-  color: white;
-  cursor: pointer;
-  margin-top: 4px;
-  width: 240px;
-}
+
 
 .tweets .tweets-button{
   background-color: grey;
@@ -238,6 +240,10 @@ color: #60265B;
   color:white;
   width: 25%;
   height:30px ;
+  margin-left: 250px;
+  display: flex;
+  justify-content: center;
+  
 }
 .login{
   align-items: center;

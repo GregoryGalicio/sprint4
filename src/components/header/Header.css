@@ -14,7 +14,7 @@
 
 .headerImagen {
     
-  margin-top: 50px;  
+  margin-top: 30px;  
   border-radius: 50%;
     width: 134px;
     height: 280.6px;
@@ -33,9 +33,9 @@
 
 .user{
 position: absolute;
-width: 250px;
+width: 320px;
 height: 23px;
-left: calc(50% - 222px/2);
+left: calc(50% - 320px/2);
 top: 239px;
 font-family: 'Silkscreen';
 font-style: normal;
@@ -51,6 +51,6 @@ color: #150714;
 
 border: 16px solid #FFEA5C;
 margin-bottom: 20px;
+margin-top: -50px;
 
 }
-
