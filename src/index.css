@@ -25,11 +25,15 @@ body {
   background-color:#2E132C;
   margin: 0;
 }
+.devs-united{
+  margin-top: 80px;
+
+}
 .titulo1 {
   font-family: silkscreen;
   color: white;
   font-size: 36px;
-  margin-top: 180px;
+  margin-top: 50px;
   padding-left: 10px;
   padding-right: 10px;
 }
@@ -53,14 +57,17 @@ font-style: normal;
 font-weight: 450;
 font-size: 18px;
 line-height: 24px;
-display: flex;
+/* display: flex;
 align-items: center;
-text-align: center;
+text-align: center; */
 letter-spacing: -0.333333px;
-
 color: #60265B;
-
 }
+.footer span{
+
+  color:red;
+  font-weight: 600;
+  }
 
 .loggin,
 .formulario {

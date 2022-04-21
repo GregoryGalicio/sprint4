@@ -163,20 +163,28 @@ function likeTweet(id, likes){
   return (
     
     <div className="App centered column">
-      <BrowserRouter>
+      {/* <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/feed" element={<Feed />}></Route>
       </Routes>
-      </BrowserRouter>
+      </BrowserRouter> */}
       <section className="login">
       {user===null && 
       <div>
         <br/>
+        <br/>
         <img className='devs-united' alt="devs" src="logo big.svg"/>
         <h1 className="titulo1">BIENVENIDOS AL TWEET PEGASINO</h1>
         <h1 className="titulo2">a social network dedicated to programmers</h1>
-      </div>
+        <button className="btn-login" type="button" onClick={loginWithGoogle}>
+          <img className='signIn' alt="signIn" src="google sign in 2.svg"/> 
+        </button>
+        <br/>
+        <p className="footer">
+        © 2020 Devs_United - <span>BETA</span>
+        </p>
+    </div>
       }
         {user &&( 
           <div classNam='user-info'>
@@ -188,9 +196,9 @@ function likeTweet(id, likes){
         <button className="btn-login" type="button" onClick={user?logout:loginWithGoogle}>
           {user? 'Cerrar':(<img className='signIn' alt="signIn" src="google sign in 2.svg"/>) }
         </button>
-        <p className="footer">
+        {/* <p className="footer">
         © 2020 Devs_United - BETA
-        </p>
+        </p> */}
       </section>
       
       {user && (
