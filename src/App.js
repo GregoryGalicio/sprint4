@@ -10,6 +10,7 @@ import Home from './Home';
 import Feed from './Feed';
 import Head from "./components/head/Head";
 import Header from "./components/header/Header";
+import Button from "./components/button/Button";
 
 
 
@@ -210,6 +211,9 @@ function likeTweet(id, likes){
           
         }
         <br/>
+        <Button
+        setView={setView}
+        />
         {/* <p className="footer">
         © 2020 Devs_United - BETA
         </p> */}
