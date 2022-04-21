@@ -8,6 +8,8 @@ import Form from "./Form";
 import RingLoader from "react-spinners/RingLoader";
 import Home from './Home';
 import Feed from './Feed';
+import Head from "./components/head/Head";
+import Header from "./components/header/Header";
 
 
 
@@ -160,6 +162,7 @@ function likeTweet(id, likes){
     })
 }
 
+
   return (
     
     <div className="App centered column">
@@ -176,32 +179,43 @@ function likeTweet(id, likes){
         <br/>
         <img className='devs-united' alt="devs" src="logo big.svg"/>
         <h1 className="titulo1">BIENVENIDOS AL TWEET PEGASINO</h1>
-        <h1 className="titulo2">a social network dedicated to programmers</h1>
+        <h1 className="titulo2">a social network dedicated to programmers and pegasiB people</h1>
         <button className="btn-login" type="button" onClick={loginWithGoogle}>
           <img className='signIn' alt="signIn" src="google sign in 2.svg"/> 
         </button>
         <br/>
         <p className="footer">
-        © 2020 Devs_United - <span>BETA</span>
+        © 2022 Devs_United - <span>BETA</span>
         </p>
-    </div>
+      </div>
       }
-        {user &&( 
-          <div classNam='user-info'>
-            <p>!!Hola {user.displayName}!!</p>
-            <img alt={user.displayName} src={user.photoURL}/>
-          </div>
-        )}
+        
+        {user &&
+          // <div classNam='user-info'>
+          //   <p>!!Hola {user.displayName}!!</p>
+          //   <img className="headImagen" alt={user.displayName} src={user.photoURL}/>
+          // </div>
+        
+          <Head
+          displayName={user.displayName}
+          logout={logout}
+          />
+          
+        }
+        {user &&
+          <Header
+          displayName={user.displayName}
+          photoURL={user.photoURL}
+          />
+          
+        }
         <br/>
-        <button className="btn-login" type="button" onClick={user?logout:loginWithGoogle}>
-          {user? 'Cerrar':(<img className='signIn' alt="signIn" src="google sign in 2.svg"/>) }
-        </button>
         {/* <p className="footer">
         © 2020 Devs_United - BETA
         </p> */}
       </section>
       
-      {user && (
+      {user &&(
       <Form 
         data={data} 
         setData={setData}
@@ -219,12 +233,13 @@ function likeTweet(id, likes){
           
 
         {user &&(view === "feed"?data:favorites).map((item) => (
+          
           <div className="tweet" key={item.id}>
             <div className="tweet-content">
               <p>{item.tweet}</p>
               <img alt={item.author} src={item.photo}/>
               <hr/>
-              <p>{item.date}</p>
+              <p>-{new Date(item.date).toLocaleDateString("es-PE",{day:"numeric"})} {new Date(item.date).toLocaleDateString("es-PE",{month:"short"})}</p>
               <small>
                  Author: 
                  <strong>@{item.author}</strong>

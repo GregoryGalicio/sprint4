@@ -1,0 +1,68 @@
+
+.user-info{
+position: absolute;
+height: 52px;
+left: 0%;
+right: 0%;
+top: 0px;
+background: #250C23;
+display: flex;
+justify-content: center;
+}
+
+.displayName{
+/* position: absolute; */
+width: 261px;
+height: 20px;
+left: 54px;
+top: 16px;
+margin-top: 20px;
+
+font-family: 'Silkscreen';
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 20px;
+/* identical to box height */
+
+display: flex;
+align-items: center;
+letter-spacing: -0.333333px;
+color: #FFFFFF;
+margin-right: 100px;
+}
+
+.btn-logout{
+background-color: red;
+Width: 116px;
+Height: 35px;
+display: flex;
+justify-content: space-around;
+/* position: absolute; */
+margin-top: 10px;
+cursor: pointer;
+    
+}
+
+
+.log{
+left: 5.17%;
+right: 28.45%;
+top: 25.71%;
+bottom: 25.71%;
+
+font-family: 'Silkscreen';
+font-style: normal;
+font-weight: 700;
+font-size: 16px;
+line-height: 16px;
+display: flex;
+align-items: center;
+letter-spacing: -0.333333px;
+
+color: #250C23;
+margin-top: 7.5px;
+}
+
+.logout{margin-top: 7.5px;
+}

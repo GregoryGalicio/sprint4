@@ -15,6 +15,7 @@
 body {
   margin: 20px;
   background-color: #edf2f6;
+  background-color: #2E132C;
 }
 
 .App {
@@ -26,7 +27,7 @@ body {
   margin: 0;
 }
 .devs-united{
-  margin-top: 80px;
+  margin-top: 0px;
 
 }
 .titulo1 {
@@ -68,6 +69,14 @@ color: #60265B;
   color:red;
   font-weight: 600;
   }
+  .headImagen {
+    border-radius: 50%;
+    width: 134px;
+    height: 134px;
+    left: calc(50% - 134px/2 + 0.5px);
+    top: 74px;
+    border: 5px solid #FFEA5C;
+  }
 
 .loggin,
 .formulario {
@@ -80,9 +89,13 @@ color: #60265B;
   margin: 0 auto 24px;
   max-width: 480px;
   padding: 4px 8px;
+  margin-top: 100px;
 }
 .login {
+  display: flex;
   align-items: center;
+  flex-direction: column;
+
 }
 
 .formulario textarea,
@@ -232,5 +245,10 @@ color: #60265B;
 }
 
 .tweet-content img{
-  width: 25%; 
+   
+  width: 56px;
+  height: 56px;
+  left: calc(50% - 56px/2 - 258px);
+  top: 366px;
+  border-radius: 50%;
 }
