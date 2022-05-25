@@ -14,7 +14,6 @@ import Button from "./components/button/Button";
 import HomePage from "./components/homePage/HomePage";
 
 
-
 export default function App() {
   const[data,setData]=useState([]);
   const[favorites, setFavorites]=useState([]);
