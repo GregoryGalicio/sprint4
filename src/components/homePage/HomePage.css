@@ -1,6 +1,5 @@
 .devs-united{
     margin-top: 0px;
-  
   }
   .titulo1 {
     font-family: silkscreen;
@@ -53,3 +52,20 @@
       color:red;
       font-weight: 600;
       }
+
+      @media only screen and (max-width: 500px) {
+        .devs-united{
+          width: 311px;
+          height: 207px;
+          left: 50px;
+         
+        }
+        .home{
+          display: flex;
+          text-align: center;
+          border: 2px solid red;
+
+        }
+      
+      
+        }

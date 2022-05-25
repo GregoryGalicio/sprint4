@@ -4,7 +4,7 @@ import "./HomePage.css";
 
 const HomePage = ({loginWithGoogle}) => {
     return (
-        <div>
+        <div className="home">
         <br/>
         <br/>
         <img className='devs-united' alt="devs" src="logo big.svg"/>
